@@ -13,11 +13,11 @@ html = Template(Path('index.html').read_text())
 
 email = EmailMessage()
 email['from'] = 'Chandler Warren'
-email['to'] = 'chandlerawarren@gmail.com'
+email['to'] = os.environ.get('EMAIL')
 email['subject'] = 'You won a bunch of money'
 
 # can use dict for substitute if using multiple variables
-email.set_content(html.substitute(name='Tintin'))
+email.set_content(html.substitute(name='Tintin'), 'html')
 
 with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
     smtp.ehlo()
